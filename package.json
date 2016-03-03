@@ -1,9 +1,11 @@
 {
-  "name": "nodex-security-tokens",
+  "name": "bixby-tokens",
   "version": "0.0.0",
-  "description": "TODO: No description specified",
+  "description": "Security token components of the Bixby framework.",
   "keywords": [
-    "security"
+    "security",
+    "token",
+    "assertion"
   ],
   "author": {
     "name": "Jared Hanson",
@@ -12,10 +14,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/jaredhanson/todo.git"
+    "url": "git://github.com/bixbyjs/bixby-tokens/todo.git"
   },
   "bugs": {
-    "url": "http://github.com/jaredhanson/todo/issues"
+    "url": "http://github.com/bixbyjs/bixby-tokens/issues"
   },
   "licenses": [
     {
