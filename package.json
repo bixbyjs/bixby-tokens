@@ -1,7 +1,7 @@
 {
   "name": "bixby-tokens",
   "version": "0.0.0",
-  "description": "Security token components of the Bixby framework.",
+  "description": "Security token components for Bixby.js.",
   "keywords": [
     "security",
     "token",
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/bixbyjs/bixby-tokens/todo.git"
+    "url": "git://github.com/bixbyjs/bixby-tokens.git"
   },
   "bugs": {
     "url": "http://github.com/bixbyjs/bixby-tokens/issues"
