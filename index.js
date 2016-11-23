@@ -1,4 +1,5 @@
 exports = module.exports = {
+  '': require('./xom/main'),
   'decoder': require('./xom/decoder'),
   'encoder': require('./xom/encoder'),
   'negotiator': require('./xom/negotiator'),

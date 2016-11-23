@@ -1,6 +1,6 @@
 exports = module.exports = function(container, logger) {
   // Load modules.
-  var Negotiator = require('./_i/negotiator');
+  var Negotiator = require('../lib/_i/negotiator');
   
   
   var negotiator = new Negotiator();
