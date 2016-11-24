@@ -2,12 +2,11 @@ exports = module.exports = function(negotiator, encoder, verifier) {
   var api = {};
   
   api.negotiate = function(formats) {
-    console.log('NEGOTIATE THE TOKEN...');
     return negotiator.negotiate(formats);
   }
   
-  api.encode = function(format, claims, options, cb) {
-    console.log('ENCODE THE TOKEN...');
+  api.encode = function(type, claims, options, cb) {
+    return encoder.encode(type, claims, options, cb);
   }
   
   return api;

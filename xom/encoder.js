@@ -4,31 +4,30 @@ exports = module.exports = function(container, logger) {
   
   
   var encoder = new Encoder();
-
-  var specs = container.specs()
-    , spec, func, type, i, len, j, jlen;
-  for (i = 0, len = specs.length; i < len; ++i) {
-    spec = specs[i];
-    if ((spec.implements || []).indexOf('http://i.bixbyjs.org/tokens/encodeFunc') !== -1) {
-      // This specification declares an encoding function for a particular token
-      // type.  Create the function and register it with the `Encoder` instance.
-      func = container.create(spec.id);
-      type = spec.a['@type'];
-      if (!Array.isArray(type)) {
-        type = [ type ];
-      }
-      
-      for (j = 0, jlen = type.length; j < jlen; ++j) {
-        encoder.use(type[j], func);
-        logger.info('Loaded plug-in for encoding tokens of type: ' + type[j]);
-      }
-    }
-  }
+  var encodeDecls = container.specs('http://i.bixbyjs.org/tokens/encodeFunc');
   
-  return encoder;
+  return Promise.all(encodeDecls.map(function(spec) { return container.create(spec.id); } ))
+    .then(function(plugins) {
+      // Register token encoding plugins.
+      plugins.forEach(function(plugin, i) {
+        var j, jlen;
+        
+        type = encodeDecls[i].a['@type'];
+        if (!Array.isArray(type)) {
+          type = [ type ];
+        }
+      
+        for (j = 0, jlen = type.length; j < jlen; ++j) {
+          encoder.use(type[j], plugin);
+          logger.info('Registered token encoder: ' + type[j]);
+        }
+      });
+    })
+    .then(function() {
+      return encoder;
+    });
 };
 
+exports['@implements'] = 'http://i.bixbyjs.org/tokens/Encoder';
 exports['@singleton'] = true;
 exports['@require'] = [ '!container', 'http://i.bixbyjs.org/Logger' ];
-
-exports['@implements'] = 'http://i.bixbyjs.org/tokens/Encoder';

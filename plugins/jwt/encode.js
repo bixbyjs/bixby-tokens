@@ -1,11 +1,14 @@
-exports = module.exports = function(keying) {
+exports = module.exports = function(keyring) {
   // Load modules.
   var tokens = require('tokens');
+  
+  function keying(options, cb) {
+    keyring.find(options, cb);
+  }
   
   return tokens.encode.sat({ issuer: 'me-x', key: 'secret', algorithm: 'HS256' }, keying);
 };
 
-exports['@require'] = [ '../_internals/keying' ];
 exports['@implements'] = 'http://i.bixbyjs.org/tokens/encodeFunc';
 exports['@type'] = [
   // JSON Web Token (JWT)
@@ -15,3 +18,4 @@ exports['@type'] = [
   // http://tools.ietf.org/html/rfc7519#section-10.3
   'application/jwt'
 ];
+exports['@require'] = [ 'http://i.bixbyjs.org/crypto/Keyring' ];
