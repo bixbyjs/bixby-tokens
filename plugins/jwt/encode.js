@@ -3,6 +3,9 @@ exports = module.exports = function(keyring) {
   var tokens = require('tokens');
   
   function keying(options, cb) {
+    console.log('SAT KEYING....');
+    console.log(options);
+    
     keyring.find(options, cb);
   }
   
