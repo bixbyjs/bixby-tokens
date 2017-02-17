@@ -9,16 +9,12 @@ exports = module.exports = function(keyring) {
     keyring.find(options, cb);
   }
   
-  return tokens.encode.sat({ issuer: 'me-x', key: 'secret', algorithm: 'HS256' }, keying);
+  return tokens.encode.sat({ issuer: 'me-x' }, keyring.find.bind(keyring));
 };
 
-exports['@implements'] = 'http://i.bixbyjs.org/tokens/encodeFunc';
-exports['@type'] = [
-  // JSON Web Token (JWT)
-  // http://tools.ietf.org/html/rfc7519#section-9
-  // http://tools.ietf.org/html/rfc7519#section-10.2
-  'urn:ietf:params:oauth:token-type:jwt',
-  // http://tools.ietf.org/html/rfc7519#section-10.3
-  'application/jwt'
+exports['@implements'] = [
+  'http://i.bixbyjs.org/tokens/seal',
+  'http://i.bixbyjs.org/tokens/types/jwt/seal'
 ];
+exports['@type'] = 'application/jwt';
 exports['@require'] = [ 'http://i.bixbyjs.org/crypto/Keyring' ];

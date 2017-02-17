@@ -19,12 +19,8 @@ exports = module.exports = function(keying) {
 
 //exports['@require'] = [ '../_internals/keying' ];
 
-exports['@implements'] = 'http://i.bixbyjs.org/tokens/decodeFunc';
-exports['@type'] = [
-  // JSON Web Token (JWT)
-  // http://tools.ietf.org/html/rfc7519#section-9
-  // http://tools.ietf.org/html/rfc7519#section-10.2
-  'urn:ietf:params:oauth:token-type:jwt',
-  // http://tools.ietf.org/html/rfc7519#section-10.3
-  'application/jwt'
+exports['@implements'] = [
+  'http://i.bixbyjs.org/tokens/unseal',
+  'http://i.bixbyjs.org/tokens/types/jwt/unseal'
 ];
+exports['@type'] = 'application/jwt';
