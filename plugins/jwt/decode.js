@@ -19,8 +19,5 @@ exports = module.exports = function(keyring) {
 
 //exports['@require'] = [ '../_internals/keying' ];
 exports['@require'] = [ 'http://i.bixbyjs.org/crypto/Keyring' ];
-exports['@implements'] = [
-  'http://i.bixbyjs.org/tokens/unseal',
-  'http://i.bixbyjs.org/tokens/types/jwt/unseal'
-];
+exports['@implements'] = 'http://i.bixbyjs.org/tokens/unsealFunc';
 exports['@type'] = 'application/jwt';

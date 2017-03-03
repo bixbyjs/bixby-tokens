@@ -9,7 +9,6 @@ exports = module.exports = function(container, logger) {
     .then(function(fns) {
       fns.forEach(function(fn, i) {
         var dialects, j, len;
-        
         dialects = translateFnDecls[i].a['@dialect'];
         if (!Array.isArray(dialects)) {
           dialects = [ dialects ];

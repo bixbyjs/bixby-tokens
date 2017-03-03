@@ -1,30 +1,28 @@
 exports = module.exports = function(container, logger) {
   // Load modules.
-  var Encoder = require('tokens').Encoder;
+  var Sealer = require('tokens').Sealer;
   
   
-  var encoder = new Encoder();
-  var encodeDecls = container.specs('http://i.bixbyjs.org/tokens/seal');
+  var sealer = new Sealer();
   
-  return Promise.all(encodeDecls.map(function(spec) { return container.create(spec.id); } ))
-    .then(function(plugins) {
-      // Register token encoding plugins.
-      plugins.forEach(function(plugin, i) {
-        var j, jlen;
-        
-        type = encodeDecls[i].a['@type'];
-        if (!Array.isArray(type)) {
-          type = [ type ];
+  var sealFnDecls = container.specs('http://i.bixbyjs.org/tokens/sealFunc');
+  return Promise.all(sealFnDecls.map(function(spec) { return container.create(spec.id); } ))
+    .then(function(fns) {
+      fns.forEach(function(fn, i) {
+        var types, j, len;
+        types = sealFnDecls[i].a['@type'];
+        if (!Array.isArray(types)) {
+          types = [ types ];
         }
       
-        for (j = 0, jlen = type.length; j < jlen; ++j) {
-          encoder.use(type[j], plugin);
-          logger.info('Registered token encoder: ' + type[j]);
+        for (j = 0, len = types.length; j < len; ++j) {
+          sealer.use(types[j], fn);
+          logger.info('Loaded sealer for token type: ' + types[j]);
         }
       });
     })
     .then(function() {
-      return encoder;
+      return sealer;
     });
 };
 

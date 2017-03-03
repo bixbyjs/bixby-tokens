@@ -13,7 +13,7 @@ exports = module.exports = function(keyring) {
 };
 
 exports['@implements'] = [
-  'http://i.bixbyjs.org/tokens/seal',
+  'http://i.bixbyjs.org/tokens/sealFunc',
   'http://i.bixbyjs.org/tokens/types/jwt/seal'
 ];
 exports['@type'] = 'application/jwt';
