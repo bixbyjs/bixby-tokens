@@ -1,42 +1,7 @@
-function Translator() {
-  this._dialects = {};
-}
-
-Translator.prototype.use = function(type, fn) {
-  this._dialects[type] = fn;
-};
-
-Translator.prototype.translate = function(type, ctx, options, cb) {
-  if (typeof options == 'function') {
-    cb = options;
-    options = undefined;
-  }
-  options = options || {};
-  
-  var fn = this._dialects[type];
-  if (!fn) { return cb(new Error('Token dialect "' + type + '" is not supported')); }
-  
-  try {
-    var arity = fn.length;
-    if (arity == 3) { // async with options
-      fn(ctx, options, cb);
-    } else if (arity == 2) { // async
-      fn(ctx, cb);
-    } else {
-      process.nextTick(function() {
-        var rv = fn(ctx);
-        cb(null, rv);
-      });
-    }
-  } catch (ex) {
-    cb(ex);
-  }
-}
-
-
-
-
 exports = module.exports = function(container, logger) {
+  var Translator = require('../lib/translator');
+  
+  
   var translator = new Translator();
   
   var translateDecls = container.specs('http://i.bixbyjs.org/tokens/translate');
