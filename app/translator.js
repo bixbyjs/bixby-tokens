@@ -4,21 +4,20 @@ exports = module.exports = function(container, logger) {
   
   var translator = new Translator();
   
-  var translateDecls = container.specs('http://i.bixbyjs.org/tokens/translateContextFunc');
-  
-  return Promise.all(translateDecls.map(function(spec) { return container.create(spec.id); } ))
-    .then(function(plugins) {
-      plugins.forEach(function(plugin, i) {
-        var j, jlen;
+  var translateFnDecls = container.specs('http://i.bixbyjs.org/tokens/translateContextFunc');
+  return Promise.all(translateFnDecls.map(function(spec) { return container.create(spec.id); } ))
+    .then(function(fns) {
+      fns.forEach(function(fn, i) {
+        var dialects, j, len;
         
-        type = translateDecls[i].a['@dialect'];
-        if (!Array.isArray(type)) {
-          type = [ type ];
+        dialects = translateFnDecls[i].a['@dialect'];
+        if (!Array.isArray(dialects)) {
+          dialects = [ dialects ];
         }
       
-        for (j = 0, jlen = type.length; j < jlen; ++j) {
-          translator.use(type[j], plugin);
-          logger.info('Loaded token translate: ' + type[j]);
+        for (j = 0, len = dialects.length; j < len; ++j) {
+          translator.use(dialects[j], fn);
+          logger.info('Loaded translator to token dialect: ' + dialects[j]);
         }
       });
     })

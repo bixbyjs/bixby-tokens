@@ -4,21 +4,20 @@ exports = module.exports = function(container, logger) {
   
   var interpreter = new Interpreter();
   
-  var interpretDecls = container.specs('http://i.bixbyjs.org/tokens/interpretClaimsFunc');
-  
-  return Promise.all(interpretDecls.map(function(spec) { return container.create(spec.id); } ))
-    .then(function(plugins) {
-      plugins.forEach(function(plugin, i) {
-        var j, jlen;
+  var interpretFnDecls = container.specs('http://i.bixbyjs.org/tokens/interpretClaimsFunc');
+  return Promise.all(interpretFnDecls.map(function(spec) { return container.create(spec.id); } ))
+    .then(function(fns) {
+      fns.forEach(function(fn, i) {
+        var dialects, j, len;
         
-        type = interpretDecls[i].a['@dialect'];
-        if (!Array.isArray(type)) {
-          type = [ type ];
+        dialects = interpretFnDecls[i].a['@dialect'];
+        if (!Array.isArray(dialects)) {
+          dialects = [ dialects ];
         }
       
-        for (j = 0, jlen = type.length; j < jlen; ++j) {
-          interpreter.use(type[j], plugin);
-          logger.info('Loaded token interpreter: ' + type[j]);
+        for (j = 0, len = dialects.length; j < len; ++j) {
+          interpreter.use(dialects[j], fn);
+          logger.info('Loaded interpreter of token dialect: ' + dialects[j]);
         }
       });
     })
