@@ -5,22 +5,40 @@ exports = module.exports = function(negotiator, interpreter, translator, unseale
     return negotiator.negotiate(formats);
   }
   
-  api.seal = function(type, claims, options, cb) {
-    return sealer.seal(type, claims, options, cb);
+  api.cipher = function(ctx, options, cb) {
+    if (typeof options == 'function') {
+      cb = options;
+      options = undefined;
+    }
+    options = options || {};
+    
+    translator.translate(ctx, options, function(err, claims) {
+      if (err) { return cb(err); }
+      
+      options.audience = ctx.audience;
+      sealer.seal(claims, options, function(err, token) {
+        if (err) { return cb(err); }
+        return cb(null, token);
+      });
+    });
   }
   
-  api.unseal = function(token, cb) {
-    return unsealer.unseal(token, cb);
+  api.decipher = function(token, options, cb) {
+    if (typeof options == 'function') {
+      cb = options;
+      options = undefined;
+    }
+    options = options || {};
+    
+    unsealer.unseal(token, options, function(err, tok) {
+      if (err) { return cb(err); }
+      
+      interpreter.interpret(tok, options, function(err, sctx) {
+        if (err) { return cb(err); }
+        return cb(null, sctx, tok.issuer);
+      });
+    });
   }
-  
-  api.translate = function(dialect, ctx, cb) {
-    return translator.translate(dialect, ctx, cb);
-  }
-  
-  api.interpret = function(claims, options, cb) {
-    return interpreter.interpret(claims, options, cb);
-  }
-  
   
   return api;
 };
