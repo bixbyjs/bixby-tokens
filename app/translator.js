@@ -4,7 +4,7 @@ exports = module.exports = function(container, logger) {
   
   var translator = new Translator();
   
-  var translateDecls = container.specs('http://i.bixbyjs.org/tokens/translate');
+  var translateDecls = container.specs('http://i.bixbyjs.org/tokens/translateContextFunc');
   
   return Promise.all(translateDecls.map(function(spec) { return container.create(spec.id); } ))
     .then(function(plugins) {

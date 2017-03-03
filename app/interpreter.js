@@ -4,7 +4,7 @@ exports = module.exports = function(container, logger) {
   
   var interpreter = new Interpreter();
   
-  var interpretDecls = container.specs('http://i.bixbyjs.org/tokens/interpret');
+  var interpretDecls = container.specs('http://i.bixbyjs.org/tokens/interpretClaimsFunc');
   
   return Promise.all(interpretDecls.map(function(spec) { return container.create(spec.id); } ))
     .then(function(plugins) {

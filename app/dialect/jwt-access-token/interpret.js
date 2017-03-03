@@ -22,8 +22,5 @@ exports = module.exports = function() {
   };
 };
 
-exports['@implements'] = [
-  'http://i.bixbyjs.org/tokens/interpret',
-  'http://i.bixbyjs.org/tokens/dialects/jwt/interpret'
-];
+exports['@implements'] = 'http://i.bixbyjs.org/tokens/interpretClaimsFunc';
 exports['@dialect'] = 'urn:ietf:params:oauth:token-type:jwt';

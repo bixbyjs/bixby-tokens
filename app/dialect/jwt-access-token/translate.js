@@ -1,6 +1,5 @@
 exports = module.exports = function() {
   
-  
   return function translate(ctx, options, cb) {
     console.log('TRANSLATE TO JWT!');
     console.log(ctx);
@@ -38,8 +37,5 @@ exports = module.exports = function() {
   };
 };
 
-exports['@implements'] = [
-  'http://i.bixbyjs.org/tokens/translate',
-  'http://i.bixbyjs.org/tokens/dialects/jwt/translate'
-];
+exports['@implements'] = 'http://i.bixbyjs.org/tokens/translateContextFunc';
 exports['@dialect'] = 'urn:ietf:params:oauth:token-type:jwt';
