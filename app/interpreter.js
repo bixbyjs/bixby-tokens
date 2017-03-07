@@ -16,7 +16,7 @@ exports = module.exports = function(container, logger) {
       
         for (j = 0, len = dialects.length; j < len; ++j) {
           interpreter.use(dialects[j], fn);
-          logger.info('Loaded interpreter of token dialect: ' + dialects[j]);
+          logger.info('Loaded token dialect interpreter: ' + dialects[j]);
         }
       });
     })

@@ -17,7 +17,7 @@ exports = module.exports = function(container, logger) {
       
         for (j = 0, len = types.length; j < len; ++j) {
           unsealer.use(fn);
-          logger.info('Loaded unsealer for token type:  ' + types[j]);
+          logger.info('Loaded token unsealer:  ' + types[j]);
         }
       });
     })

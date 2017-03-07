@@ -17,7 +17,7 @@ exports = module.exports = function(container, logger) {
       
         for (j = 0, len = types.length; j < len; ++j) {
           sealer.use(types[j], fn);
-          logger.info('Loaded sealer for token type: ' + types[j]);
+          logger.info('Loaded token sealer: ' + types[j]);
         }
       });
     })
