@@ -9,7 +9,8 @@ exports = module.exports = function(keyring) {
     keyring.find(options, cb);
   }
   
-  return tokens.encode.sat({ issuer: 'me-x' }, keyring.find.bind(keyring));
+  // TODO: consolidate the issuer value somewhere.
+  return tokens.jwt.seal({ issuer: 'http://localhost' }, keyring.find.bind(keyring));
 };
 
 exports['@implements'] = [

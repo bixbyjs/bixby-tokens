@@ -14,7 +14,7 @@ exports = module.exports = function(keyring) {
     return cb(null, 'secret-foo-bar-asdfadfasfasdfaeafdasfsf');
   }
   
-  return tokens.decode.sat(keyring.find.bind(keyring));
+  return tokens.jwt.unseal(keyring.find.bind(keyring));
 };
 
 //exports['@require'] = [ '../_internals/keying' ];

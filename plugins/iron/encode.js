@@ -1,12 +1,11 @@
-exports = module.exports = function(keying) {
+exports = module.exports = function(keyring) {
   // Load modules.
   var iron = require('tokens-iron');
   
-  return iron.encode(keying);
+  return iron.seal(keyring.find.bind(keyring));
 };
 
 
-exports['@require'] = [ '../_internals/keying' ];
-
-exports['@implements'] = 'http://i.bixbyjs.org/tokens/encodeFunc';
-exports['@type'] = [ 'application/fe26.2' ];
+exports['@implements'] = 'http://i.bixbyjs.org/tokens/sealFunc';
+exports['@type'] = [ 'application/iron' ];
+exports['@require'] = [ 'http://i.bixbyjs.org/crypto/Keyring' ];
