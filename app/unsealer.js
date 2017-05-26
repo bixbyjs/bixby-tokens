@@ -5,12 +5,12 @@ exports = module.exports = function(container, logger) {
   
   var unsealer = new Unsealer();
   
-  var unsealFnDecls = container.specs('http://i.bixbyjs.org/tokens/unsealFunc');
-  return Promise.all(unsealFnDecls.map(function(spec) { return container.create(spec.id); } ))
+  var unsealComps = container.components('http://i.bixbyjs.org/tokens/unsealFunc');
+  return Promise.all(unsealComps.map(function(comp) { return comp.create(); } ))
     .then(function(fns) {
       fns.forEach(function(fn, i) {
         var types, j, len;
-        types = unsealFnDecls[i].a['@type'];
+        types = unsealComps[i].a['@type'];
         if (!Array.isArray(types)) {
           types = [ types ];
         }

@@ -4,12 +4,12 @@ exports = module.exports = function(container, logger) {
   
   var translator = new Translator();
   
-  var translateFnDecls = container.specs('http://i.bixbyjs.org/tokens/translateContextFunc');
-  return Promise.all(translateFnDecls.map(function(spec) { return container.create(spec.id); } ))
+  var translateComps = container.components('http://i.bixbyjs.org/tokens/translateContextFunc');
+  return Promise.all(translateComps.map(function(comp) { return comp.create(); } ))
     .then(function(fns) {
       fns.forEach(function(fn, i) {
         var dialects, j, len;
-        dialects = translateFnDecls[i].a['@dialect'];
+        dialects = translateComps[i].a['@dialect'];
         if (!Array.isArray(dialects)) {
           dialects = [ dialects ];
         }

@@ -5,12 +5,12 @@ exports = module.exports = function(container, logger) {
   
   var sealer = new Sealer();
   
-  var sealFnDecls = container.specs('http://i.bixbyjs.org/tokens/sealFunc');
-  return Promise.all(sealFnDecls.map(function(spec) { return container.create(spec.id); } ))
+  var sealComps = container.components('http://i.bixbyjs.org/tokens/sealFunc');
+  return Promise.all(sealComps.map(function(comp) { return comp.create(); } ))
     .then(function(fns) {
       fns.forEach(function(fn, i) {
         var types, j, len;
-        types = sealFnDecls[i].a['@type'];
+        types = sealComps[i].a['@type'];
         if (!Array.isArray(types)) {
           types = [ types ];
         }

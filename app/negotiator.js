@@ -53,7 +53,7 @@ Negotiator.prototype.negotiate = function(formats, options) {
 exports = module.exports = function(container, logger) {
   var negotiator = new Negotiator();
   
-  var specs = container.specs()
+  var specs = container.components()
     , spec, obj, type, i, len, j, jlen;
   for (i = 0, len = specs.length; i < len; ++i) {
     spec = specs[i];

@@ -4,12 +4,12 @@ exports = module.exports = function(container, logger) {
   
   var interpreter = new Interpreter();
   
-  var interpretFnDecls = container.specs('http://i.bixbyjs.org/tokens/interpretClaimsFunc');
-  return Promise.all(interpretFnDecls.map(function(spec) { return container.create(spec.id); } ))
+  var interpretComps = container.components('http://i.bixbyjs.org/tokens/interpretClaimsFunc');
+  return Promise.all(interpretComps.map(function(comp) { return comp.create(); } ))
     .then(function(fns) {
       fns.forEach(function(fn, i) {
         var dialects, j, len;
-        dialects = interpretFnDecls[i].a['@dialect'];
+        dialects = interpretComps[i].a['@dialect'];
         if (!Array.isArray(dialects)) {
           dialects = [ dialects ];
         }
