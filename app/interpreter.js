@@ -1,5 +1,5 @@
 exports = module.exports = function(container, logger) {
-  var Interpreter = require('../lib/interpreter');
+  var Interpreter = require('tokens').Interpreter;
   
   
   var interpreter = new Interpreter();

@@ -1,5 +1,5 @@
 exports = module.exports = function(container, logger) {
-  var Translator = require('../lib/translator');
+  var Translator = require('tokens').Translator;
   
   
   var translator = new Translator();
