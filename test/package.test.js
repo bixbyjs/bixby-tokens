@@ -1,11 +1,22 @@
 /* global describe, it, expect */
 
-var pkg = require('..');
-
-describe('nodex-security', function() {
+describe('bixby-tokens', function() {
   
-  it('should export object', function() {
-    expect(pkg).to.be.an('object');
+  describe('package.json', function() {
+    var json = require('../package.json');
+    
+    it('should have assembly metadata', function() {
+      expect(json.assembly.namespace).to.equal('tokens');
+      
+      expect(json.assembly.components).to.have.length(10);
+      expect(json.assembly.components).to.include('main');
+    });
+  });
+  
+  it('should throw if required', function() {
+    expect(function() {
+      var pkg = require('..');
+    }).to.throw(Error).with.property('code', 'MODULE_NOT_FOUND');
   });
   
 });
