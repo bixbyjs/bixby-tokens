@@ -32,10 +32,10 @@
     "components": [
       "main",
       "negotiator",
+      "types/jwt/seal",
+      "types/jwt/unseal",
       "dialect/jwt-access-token/translate",
-      "dialect/jwt-access-token/interpret",
-      "types/jwt/decode",
-      "types/jwt/encode"
+      "dialect/jwt-access-token/interpret"
     ]
   },
   "dependencies": {
