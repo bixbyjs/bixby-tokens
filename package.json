@@ -1,7 +1,7 @@
 {
   "name": "bixby-tokens",
   "version": "0.0.0",
-  "description": "Security token components for Bixby.js.",
+  "description": "Token components for Bixby.js.",
   "keywords": [
     "security",
     "token",
