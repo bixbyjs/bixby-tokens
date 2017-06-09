@@ -31,10 +31,6 @@
     "namespace": "tokens",
     "components": [
       "main",
-      "interpreter",
-      "sealer",
-      "translator",
-      "unsealer",
       "negotiator",
       "dialect/jwt-access-token/translate",
       "dialect/jwt-access-token/interpret",

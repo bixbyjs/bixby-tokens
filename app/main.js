@@ -47,8 +47,8 @@ exports['@implements'] = 'http://i.bixbyjs.org/tokens';
 exports['@singleton'] = true;
 exports['@require'] = [
   'http://i.bixbyjs.org/tokens/Negotiator',
-  'http://i.bixbyjs.org/tokens/Interpreter',
-  'http://i.bixbyjs.org/tokens/Translator',
-  'http://i.bixbyjs.org/tokens/Unsealer',
-  'http://i.bixbyjs.org/tokens/Sealer'
+  './interpreter',
+  './translator',
+  './unsealer',
+  './sealer'
 ];
