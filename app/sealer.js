@@ -26,6 +26,5 @@ exports = module.exports = function(container, logger) {
     });
 };
 
-exports['@implements'] = 'http://i.bixbyjs.org/tokens/Sealer';
 exports['@singleton'] = true;
 exports['@require'] = [ '!container', 'http://i.bixbyjs.org/Logger' ];

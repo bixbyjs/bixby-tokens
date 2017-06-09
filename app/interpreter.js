@@ -25,7 +25,6 @@ exports = module.exports = function(container, logger) {
     });
 };
 
-exports['@implements'] = 'http://i.bixbyjs.org/tokens/Interpreter';
 exports['@singleton'] = true;
 exports['@require'] = [
   '!container',
