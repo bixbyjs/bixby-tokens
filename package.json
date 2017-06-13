@@ -34,8 +34,8 @@
       "negotiator",
       "jwt/seal",
       "jwt/unseal",
-      "dialect/jwt-access-token/translate",
-      "dialect/jwt-access-token/interpret"
+      "jwt/translate",
+      "jwt/interpret"
     ]
   },
   "dependencies": {
