@@ -32,8 +32,8 @@
     "components": [
       "main",
       "negotiator",
-      "types/jwt/seal",
-      "types/jwt/unseal",
+      "jwt/seal",
+      "jwt/unseal",
       "dialect/jwt-access-token/translate",
       "dialect/jwt-access-token/interpret"
     ]
