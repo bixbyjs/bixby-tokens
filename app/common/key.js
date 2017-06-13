@@ -8,9 +8,9 @@ exports = module.exports = function(credentials, keyring) {
     var opts = {};
     // TODO: Don't overload id and URL
     
-    if (options.usage == 'sign') {
+    if (options.usage == 'sign' || options.usage == 'encrypt') {
       opts.url = options.recipient.id;
-    } else if (options.usage == 'verify') {
+    } else if (options.usage == 'verify' || options.usage == 'decrypt') {
       opts.url = options.sender ? options.sender.id : 'http://localhost/';
     }
     

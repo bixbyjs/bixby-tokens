@@ -35,7 +35,9 @@
       "jwt/seal",
       "jwt/unseal",
       "jwt/translate",
-      "jwt/interpret"
+      "jwt/interpret",
+      "iron/seal",
+      "iron/unseal"
     ]
   },
   "dependencies": {
