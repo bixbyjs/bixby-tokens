@@ -15,7 +15,11 @@ exports = module.exports = function(negotiator, interpreter, translator, unseale
     translator.translate(ctx, options, function(err, claims) {
       if (err) { return cb(err); }
       
+      // Marshal context necessary for sealing the token.  This includes this
+      // that are conceptually "header" information, such as the audience, time
+      // of issuance, expiration, etc.
       options.audience = ctx.audience;
+      
       sealer.seal(claims, options, function(err, token) {
         if (err) { return cb(err); }
         return cb(null, token);

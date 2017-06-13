@@ -1,4 +1,4 @@
-exports = module.exports = function(keyring) {
+exports = module.exports = function(key) {
   // Load modules.
   var tokens = require('tokens');
   
@@ -14,10 +14,10 @@ exports = module.exports = function(keyring) {
     return cb(null, 'secret-foo-bar-asdfadfasfasdfaeafdasfsf');
   }
   
-  return tokens.jwt.unseal(keyring.find.bind(keyring));
+  return tokens.jwt.unseal(key);
 };
 
 //exports['@require'] = [ '../_internals/keying' ];
-exports['@require'] = [ 'http://i.bixbyjs.org/crypto/Keyring' ];
+exports['@require'] = [ '../../common/key' ];
 exports['@implements'] = 'http://i.bixbyjs.org/tokens/unsealFunc';
 exports['@type'] = 'application/jwt';
