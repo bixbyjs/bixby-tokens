@@ -18,6 +18,6 @@ exports = module.exports = function(key) {
 };
 
 //exports['@require'] = [ '../_internals/keying' ];
-exports['@require'] = [ '../../common/key' ];
+exports['@require'] = [ '../common/key' ];
 exports['@implements'] = 'http://i.bixbyjs.org/tokens/unsealFunc';
 exports['@type'] = 'application/jwt';
