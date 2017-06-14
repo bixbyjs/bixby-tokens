@@ -1,5 +1,8 @@
 exports = module.exports = function(credentials, keyring) {
   
+  // TODO: Add a way to check if audience is logically self, and then fetch
+  //       keys from KMS (ie Google) for HSM purposes.
+  
   return function get(options, cb) {
     console.log('### COMMON KEYING');
     console.log(options);
@@ -9,6 +12,7 @@ exports = module.exports = function(credentials, keyring) {
     // TODO: Don't overload id and URL
     
     if (options.usage == 'sign' || options.usage == 'encrypt') {
+      // TODO: if no recipient, default to self
       opts.url = options.recipient.id;
     } else if (options.usage == 'verify' || options.usage == 'decrypt') {
       opts.url = options.sender ? options.sender.id : 'http://localhost/';
@@ -21,7 +25,7 @@ exports = module.exports = function(credentials, keyring) {
       
       if (err) { return cb(err); }
       if (typeof cred == 'string') {
-        cred = { secret: cred, algorithm: 'hmac-sha256' }
+        cred = { secret: cred }
       }
       return cb(null, [ cred ]);
     });
