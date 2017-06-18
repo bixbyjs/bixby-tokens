@@ -5,7 +5,6 @@ exports = module.exports = function(key) {
   return iron.unseal(key);
 };
 
-
 exports['@implements'] = 'http://i.bixbyjs.org/tokens/unsealFunc';
 exports['@type'] = [ 'application/fe26.2' ];
 exports['@require'] = [ '../common/key' ];

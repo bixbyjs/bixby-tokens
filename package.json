@@ -36,6 +36,8 @@
       "jwt/unseal",
       "jwt/translate",
       "jwt/interpret",
+      "fernet/seal",
+      "fernet/unseal",
       "iron/seal",
       "iron/unseal"
     ]
