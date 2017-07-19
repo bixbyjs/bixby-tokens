@@ -39,7 +39,7 @@ exports = module.exports = function(negotiator, interpreter, translator, unseale
       
       interpreter.interpret(tok, options, function(err, sctx) {
         if (err) { return cb(err); }
-        return cb(null, sctx, tok.issuer);
+        return cb(null, sctx, tok);
       });
     });
   }
