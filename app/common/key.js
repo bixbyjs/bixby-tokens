@@ -4,8 +4,8 @@ exports = module.exports = function(credentials, keyring) {
   //       keys from KMS (ie Google) for HSM purposes.
   
   return function get(options, cb) {
-    console.log('### COMMON KEYING');
-    console.log(options);
+    //console.log('### COMMON KEYING');
+    //console.log(options);
     
     
     var opts = {};
@@ -19,9 +19,9 @@ exports = module.exports = function(credentials, keyring) {
     }
     
     credentials.get(opts, function(err, cred) {
-      console.log('GOT CRED!');
-      console.log(err);
-      console.log(cred);
+      //console.log('GOT CRED!');
+      //console.log(err);
+      //console.log(cred);
       
       if (err) { return cb(err); }
       if (typeof cred == 'string') {
