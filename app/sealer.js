@@ -1,6 +1,6 @@
 exports = module.exports = function(container, logger) {
   // Load modules.
-  var Sealer = require('tokens').Sealer;
+  var Sealer = require('tokens').OldSealer;
   
   
   var sealer = new Sealer();

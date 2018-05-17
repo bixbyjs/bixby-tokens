@@ -1,6 +1,6 @@
 exports = module.exports = function(container, logger) {
   // Load modules.
-  var Unsealer = require('tokens').Unsealer;
+  var Unsealer = require('tokens').OldUnsealer;
   
   
   var unsealer = new Unsealer();
