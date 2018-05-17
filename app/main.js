@@ -44,6 +44,27 @@ exports = module.exports = function(IoC, negotiator, interpreter, translator, un
         });
       };
   
+      api.unseal = function(token, cb) {
+        console.log('UNSEAL THIS')
+        console.log(token)
+        
+        var unsealer;
+        try {
+          unsealer = tokens.createUnsealer();
+        } catch (ex) {
+          return cb(ex);
+        }
+        
+        unsealer.unseal(token, function(err, msg, extra) {
+          if (err) { return cb(err); }
+          
+          console.log('MESSAG!');
+          console.log(msg);
+          console.log(extra);
+          
+          return cb(null, msg.claims);
+        });
+      };
   
   
       api.negotiate = function(formats) {
