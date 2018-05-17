@@ -1,4 +1,4 @@
-exports = module.exports = function(negotiator, interpreter, translator, unsealer, sealer) {
+exports = module.exports = function(IoC, negotiator, interpreter, translator, unsealer, sealer, logger) {
   var Tokens = require('tokens').Tokens;
   
   
@@ -6,7 +6,43 @@ exports = module.exports = function(negotiator, interpreter, translator, unseale
   
   return Promise.resolve(tokens)
     .then(function(tokens) {
+      var components = IoC.components('http://i.bixbyjs.org/tokens/Token');
+      return Promise.all(components.map(function(comp) { return comp.create(); } ))
+        .then(function(formats) {
+          formats.forEach(function(format, i) {
+            var type = components[i].a['@type'];
+            logger.info('Loaded token type: ' + type);
+            tokens.format(type, format)
+          });
+        })
+        .then(function() {
+          return tokens;
+        });
+    })
+    .then(function(tokens) {
       var api = {};
+  
+      api.seal = function(msg, to, from, cb) {
+        console.log('SEAL THIS MESSAGE!');
+        console.log(msg)
+        
+        
+        var sealer;
+        try {
+          sealer = tokens.createSealer('application/jwt');
+        } catch (ex) {
+          return cb(ex);
+        }
+        
+        sealer.seal(msg, to, from, function(err, token) {
+          console.log('SEALED IT!');
+          console.log(err)
+          console.log(token)
+          
+        })
+      };
+  
+  
   
       api.negotiate = function(formats) {
         return negotiator.negotiate(formats);
@@ -58,9 +94,11 @@ exports = module.exports = function(negotiator, interpreter, translator, unseale
 exports['@implements'] = 'http://i.bixbyjs.org/tokens';
 exports['@singleton'] = true;
 exports['@require'] = [
+  '!container',
   'http://i.bixbyjs.org/tokens/Negotiator',
   './interpreter',
   './translator',
   './unsealer',
-  './sealer'
+  './sealer',
+  'http://i.bixbyjs.org/Logger'
 ];
