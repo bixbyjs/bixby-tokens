@@ -39,7 +39,9 @@ exports = module.exports = function(IoC, negotiator, interpreter, translator, un
           console.log(err)
           console.log(token)
           
-        })
+          if (err) { return cb(err); }
+          return cb(null, token);
+        });
       };
   
   
