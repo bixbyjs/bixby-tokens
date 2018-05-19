@@ -4,16 +4,16 @@ exports = module.exports = function(credentials, keyring) {
   //       keys from KMS (ie Google) for HSM purposes.
   
   return function get(options, cb) {
-    //console.log('### COMMON KEYING');
-    //console.log(options);
-    
+    console.log('### COMMON KEYING');
+    console.log(options);
     
     var opts = {};
     // TODO: Don't overload id and URL
     
     if (options.usage == 'sign' || options.usage == 'encrypt') {
       // TODO: if no recipient, default to self
-      opts.url = options.recipient.id;
+      opts.id = options.recipient.id;
+      opts.url = options.recipient.identifier;
     } else if (options.usage == 'verify' || options.usage == 'decrypt') {
       opts.url = options.sender ? options.sender.id : 'http://localhost/';
     }
