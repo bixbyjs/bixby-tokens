@@ -22,9 +22,9 @@ exports = module.exports = function(IoC, negotiator, interpreter, translator, un
     .then(function(tokens) {
       var api = {};
   
-      api.seal = function(msg, to, from, cb) {
+      api.seal = function(claims, recipients, options, cb) {
         console.log('SEAL THIS MESSAGE!');
-        console.log(msg)
+        console.log(claims)
         
         
         var sealer;
@@ -34,7 +34,7 @@ exports = module.exports = function(IoC, negotiator, interpreter, translator, un
           return cb(ex);
         }
         
-        sealer.seal(msg, to, from, function(err, token) {
+        sealer.seal(claims, recipients, options, function(err, token) {
           console.log('SEALED IT!');
           console.log(err)
           console.log(token)
