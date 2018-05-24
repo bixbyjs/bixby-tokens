@@ -26,10 +26,12 @@ exports = module.exports = function(IoC, negotiator, interpreter, translator, un
         console.log('SEAL THIS MESSAGE!');
         console.log(claims)
         
+        var type = options.type || 'application/jwt';
+        
         
         var sealer;
         try {
-          sealer = tokens.createSealer('application/jwt');
+          sealer = tokens.createSealer(type);
         } catch (ex) {
           return cb(ex);
         }
