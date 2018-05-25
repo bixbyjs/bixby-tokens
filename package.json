@@ -37,6 +37,7 @@
       "jwt/unseal",
       "fernet/seal",
       "fernet/unseal",
+      "iron/token",
       "iron/seal",
       "iron/unseal"
     ]

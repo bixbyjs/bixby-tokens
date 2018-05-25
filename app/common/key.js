@@ -10,11 +10,11 @@ exports = module.exports = function(credentials, keyring) {
     var opts = {};
     // TODO: Don't overload id and URL
     
-    if (options.usage == 'sign' || options.usage == 'encrypt') {
+    if (options.usage == 'sign' || options.usage == 'encrypt' || (options.usage == 'deriveKey' && !options.foo)) {
       // TODO: if no recipient, default to self
       opts.id = options.recipient.id;
       opts.url = options.recipient.identifier;
-    } else if (options.usage == 'verify' || options.usage == 'decrypt') {
+    } else if (options.usage == 'verify' || options.usage == 'decrypt' || options.usage == 'deriveKey') {
       opts.url = options.sender ? options.sender.id : 'http://localhost/';
     }
     
