@@ -47,9 +47,6 @@ exports = module.exports = function(IoC, negotiator, interpreter, translator, un
       };
   
       api.unseal = function(token, cb) {
-        console.log('UNSEAL THIS')
-        console.log(token)
-        
         var unsealer;
         try {
           unsealer = tokens.createUnsealer();
@@ -57,14 +54,9 @@ exports = module.exports = function(IoC, negotiator, interpreter, translator, un
           return cb(ex);
         }
         
-        unsealer.unseal(token, function(err, msg, extra) {
+        unsealer.unseal(token, function(err, claims, conditions, issuer) {
           if (err) { return cb(err); }
-          
-          console.log('MESSAG!');
-          console.log(msg);
-          console.log(extra);
-          
-          return cb(null, msg.claims);
+          return cb(null, claims, conditions, issuer);
         });
       };
   
