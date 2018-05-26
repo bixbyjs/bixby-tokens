@@ -18,7 +18,7 @@ exports = module.exports = function(credentials, keyring) {
       opts.url = options.sender ? options.sender.id : 'http://localhost/';
     }
     
-    credentials.get(opts, function(err, cred) {
+    credentials.get(options.sender || options.recipient, opts, function(err, cred) {
       //console.log('GOT CRED!');
       //console.log(err);
       //console.log(cred);

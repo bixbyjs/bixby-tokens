@@ -46,7 +46,13 @@ exports = module.exports = function(IoC, negotiator, interpreter, translator, un
         });
       };
   
-      api.unseal = function(token, cb) {
+      api.unseal = function(token, options, cb) {
+        if (typeof options == 'function') {
+          cb = options;
+          options = undefined;
+        }
+        options = options || {};
+        
         var unsealer;
         try {
           unsealer = tokens.createUnsealer();
@@ -54,7 +60,7 @@ exports = module.exports = function(IoC, negotiator, interpreter, translator, un
           return cb(ex);
         }
         
-        unsealer.unseal(token, function(err, claims, conditions, issuer) {
+        unsealer.unseal(token, options, function(err, claims, conditions, issuer) {
           if (err) { return cb(err); }
           return cb(null, claims, conditions, issuer);
         });
