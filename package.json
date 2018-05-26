@@ -34,10 +34,7 @@
       "negotiator",
       "jwt/token",
       "jwt/seal",
-      "jwt/unseal",
-      "fernet/token",
-      "fernet/seal",
-      "fernet/unseal"
+      "jwt/unseal"
     ]
   },
   "dependencies": {
