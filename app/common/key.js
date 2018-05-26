@@ -12,13 +12,13 @@ exports = module.exports = function(credentials, keyring) {
     
     if (options.usage == 'sign' || options.usage == 'encrypt' || (options.usage == 'deriveKey' && !options.foo)) {
       // TODO: if no recipient, default to self
-      opts.id = options.recipient.id;
-      opts.url = options.recipient.identifier;
+      opts.id = entity.id;
+      opts.url = entity.identifier;
     } else if (options.usage == 'verify' || options.usage == 'decrypt' || options.usage == 'deriveKey') {
-      opts.url = options.sender ? options.sender.id : 'http://localhost/';
+      opts.url = entity ? entity.id : 'http://localhost/';
     }
     
-    credentials.get(options.sender || options.recipient, opts, function(err, cred) {
+    credentials.get(entity, opts, function(err, cred) {
       //console.log('GOT CRED!');
       //console.log(err);
       //console.log(cred);
