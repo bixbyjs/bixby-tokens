@@ -1,4 +1,4 @@
-exports = module.exports = function(credentials, keyring) {
+exports = module.exports = function(keyring) {
   
   // TODO: Add a way to check if audience is logically self, and then fetch
   //       keys from KMS (ie Google) for HSM purposes.
@@ -18,15 +18,13 @@ exports = module.exports = function(credentials, keyring) {
       opts.url = entity ? entity.id : 'http://localhost/';
     }
     
-    credentials.get(entity, opts, function(err, cred) {
-      //console.log('GOT CRED!');
-      //console.log(err);
-      //console.log(cred);
-      
+    keyring.get(entity.id, function(err, cred) {
       if (err) { return cb(err); }
       if (typeof cred == 'string') {
         cred = { secret: cred }
       }
+      // FIXME: Normalize better
+      cred.secret = cred.password;
       return cb(null, cred);
     });
     
