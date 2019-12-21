@@ -7,6 +7,10 @@ exports = module.exports = function(keyring) {
     console.log('### COMMON KEYING');
     console.log(options);
     
+    if (typeof entity == 'string') {
+      entity = { id: entity }
+    }
+    
     var opts = {};
     // TODO: Don't overload id and URL
     
@@ -18,7 +22,14 @@ exports = module.exports = function(keyring) {
       opts.url = entity ? entity.id : 'http://localhost/';
     }
     
+    console.log('KEYRING GET');
+    console.log(entity);
+    
     keyring.get(entity.id, function(err, cred) {
+      console.log('GOT!');
+      console.log(err);
+      console.log(cred)
+      
       if (err) { return cb(err); }
       if (typeof cred == 'string') {
         cred = { secret: cred }
@@ -45,6 +56,5 @@ exports = module.exports = function(keyring) {
 
 
 exports['@require'] = [
-  'http://i.bixbyjs.org/security/CredentialsStore',
-  'http://i.bixbyjs.org/crypto/Keyring'
+  'http://i.bixbyjs.org/security/Keyring'
 ];
