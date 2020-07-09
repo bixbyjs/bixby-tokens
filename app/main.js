@@ -19,8 +19,28 @@ exports = module.exports = function(IoC, negotiator, interpreter, translator, un
           return tokens;
         });
     })
+    .then(function(itokens) {
+      var components = IoC.components('http://i.bixbyjs.org/tokens/Schema');
+      return Promise.all(components.map(function(comp) { return comp.create(); } ))
+        .then(function(schemas) {
+          schemas.forEach(function(schema, i) {
+            var type = components[i].a['@type'];
+            logger.info('Loaded token schema: ' + type);
+            tokens.schema(type, schema);
+          });
+          
+          //tokens.schema('urn:ietf:params:oauth:token-type:jwt', jwt);
+        })
+        .then(function() {
+          return itokens;
+        });
+    })
     .then(function(tokens) {
       var api = {};
+  
+      // TODO: Return tokens directly;
+      api.createSerializer = tokens.createSerializer.bind(tokens);
+      api.createSealer = tokens.createSealer.bind(tokens);
   
       api.seal = function(claims, recipients, options, cb) {
         console.log('SEAL THIS MESSAGE!');
