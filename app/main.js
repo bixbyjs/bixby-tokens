@@ -19,21 +19,35 @@ exports = module.exports = function(IoC, negotiator, interpreter, translator, un
           return tokens;
         });
     })
-    .then(function(itokens) {
-      var components = IoC.components('http://i.bixbyjs.org/tokens/Schema');
-      return Promise.all(components.map(function(comp) { return comp.create(); } ))
-        .then(function(schemas) {
-          schemas.forEach(function(schema, i) {
-            var type = components[i].a['@type'];
-            logger.info('Loaded token schema: ' + type);
-            tokens.schema(type, schema);
-          });
+    .then(function(tokens) {
+      // Register token dialects.
+      return new Promise(function(resolve, reject) {
+        var components = IoC.components('http://i.bixbyjs.org/tokens/Dialect');
+        
+        (function iter(i) {
+          var component = components[i];
+          if (!component) {
+            return resolve(tokens);
+          }
           
-          //tokens.schema('urn:ietf:params:oauth:token-type:jwt', jwt);
-        })
-        .then(function() {
-          return itokens;
-        });
+          component.create()
+            .then(function(dialect) {
+              logger.info('Loaded token dialect: ' + component.a['@type']);
+              
+              tokens.dialect(component.a['@type'], dialect);
+              iter(i + 1);
+            }, function(err) {
+              // TODO: Print the package name in the error, so it can be found
+              // TODO: Make the error have the stack of dependencies.
+              if (err.code == 'IMPLEMENTATION_NOT_FOUND') {
+                logger.notice(err.message + ' while loading component ' + component.id);
+                return iter(i + 1);
+              }
+              
+              reject(err);
+            })
+        })(0);
+      });
     })
     .then(function(tokens) {
       var api = {};
