@@ -58,30 +58,6 @@ exports = module.exports = function(IoC, interpreter, translator, unsealer, seal
       api.createSealer = tokens.createSealer.bind(tokens);
       api.createUnsealer = tokens.createUnsealer.bind(tokens);
   
-      api.seal = function(claims, recipients, options, cb) {
-        console.log('SEAL THIS MESSAGE!');
-        console.log(claims)
-        
-        var type = options.type || 'application/jwt';
-        
-        
-        var sealer;
-        try {
-          sealer = tokens.createSealer(type);
-        } catch (ex) {
-          return cb(ex);
-        }
-        
-        sealer.seal(claims, recipients, options, function(err, token) {
-          console.log('SEALED IT!');
-          console.log(err)
-          console.log(token)
-          
-          if (err) { return cb(err); }
-          return cb(null, token);
-        });
-      };
-  
       api.unseal = function(token, options, cb) {
         if (typeof options == 'function') {
           cb = options;
@@ -101,52 +77,6 @@ exports = module.exports = function(IoC, interpreter, translator, unsealer, seal
           return cb(null, claims, conditions, issuer);
         });
       };
-  
-  
-      /*
-      api.negotiate = function(formats) {
-        return negotiator.negotiate(formats);
-      }
-      */
-  
-      api.cipher = function(ctx, options, cb) {
-        if (typeof options == 'function') {
-          cb = options;
-          options = undefined;
-        }
-        options = options || {};
-    
-        translator.translate(ctx, options, function(err, claims) {
-          if (err) { return cb(err); }
-      
-          // Marshal context necessary for sealing the token.  This includes this
-          // that are conceptually "header" information, such as the audience, time
-          // of issuance, expiration, etc.
-          options.audience = ctx.audience;
-      
-          sealer.seal(claims, options, function(err, token) {
-            if (err) { return cb(err); }
-            return cb(null, token);
-          });
-        });
-      }
-  
-      api.decipher = function(token, options, cb) {
-        if (typeof options == 'function') {
-          cb = options;
-          options = undefined;
-        }
-        options = options || {};
-    
-        unsealer.unseal(token, options, function(err, tok) {
-          if (err) { return cb(err); }
-      
-          interpreter.interpret(tok, options, function(err, sctx) {
-            if (err) { return cb(err); }
-            return cb(null, sctx, tok);
-          });
-        });
-      }
   
       return api;
     });
