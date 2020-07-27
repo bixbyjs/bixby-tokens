@@ -54,7 +54,9 @@ exports = module.exports = function(IoC, negotiator, interpreter, translator, un
   
       // TODO: Return tokens directly;
       api.createSerializer = tokens.createSerializer.bind(tokens);
+      api.createDeserializer = tokens.createDeserializer.bind(tokens);
       api.createSealer = tokens.createSealer.bind(tokens);
+      api.createUnsealer = tokens.createUnsealer.bind(tokens);
   
       api.seal = function(claims, recipients, options, cb) {
         console.log('SEAL THIS MESSAGE!');

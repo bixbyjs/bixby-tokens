@@ -16,8 +16,8 @@ exports = module.exports = function(keyring) {
     
     if (options.usage == 'sign' || options.usage == 'encrypt' || (options.usage == 'deriveKey' && !options.foo)) {
       // TODO: if no recipient, default to self
-      opts.id = entity.id;
-      opts.url = entity.identifier;
+      opts.id = entity && entity.id;
+      opts.url = entity && entity.identifier;
     } else if (options.usage == 'verify' || options.usage == 'decrypt' || options.usage == 'deriveKey') {
       opts.url = entity ? entity.id : 'http://localhost/';
     }
@@ -25,7 +25,7 @@ exports = module.exports = function(keyring) {
     console.log('KEYRING GET');
     console.log(entity);
     
-    keyring.get(entity.id, function(err, cred) {
+    keyring.get(entity && entity.id, function(err, cred) {
       console.log('GOT!');
       console.log(err);
       console.log(cred)
@@ -35,7 +35,7 @@ exports = module.exports = function(keyring) {
         cred = { secret: cred }
       }
       // FIXME: Normalize better
-      cred.secret = cred.password;
+      cred.secret = cred.secret || cred.password;
       return cb(null, cred);
     });
     
