@@ -31,9 +31,7 @@
     "namespace": "tokens",
     "components": [
       "main",
-      "jwt/token",
-      "jwt/seal",
-      "jwt/unseal"
+      "jwt/token"
     ]
   },
   "dependencies": {
