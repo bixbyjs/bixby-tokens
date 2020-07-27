@@ -5,6 +5,5 @@ exports = module.exports = function(key) {
   return tokens.jwt.unseal(key);
 };
 
-exports['@implements'] = 'http://i.bixbyjs.org/tokens/unsealFunc';
 exports['@type'] = 'application/jwt';
 exports['@require'] = [ '../common/key' ];
