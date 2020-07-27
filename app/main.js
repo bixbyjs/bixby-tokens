@@ -50,15 +50,7 @@ exports = module.exports = function(IoC, logger) {
       });
     })
     .then(function(tokens) {
-      var api = {};
-  
-      // TODO: Return tokens directly;
-      api.createSerializer = tokens.createSerializer.bind(tokens);
-      api.createDeserializer = tokens.createDeserializer.bind(tokens);
-      api.createSealer = tokens.createSealer.bind(tokens);
-      api.createUnsealer = tokens.createUnsealer.bind(tokens);
-  
-      return api;
+      return tokens;
     });
 };
 
