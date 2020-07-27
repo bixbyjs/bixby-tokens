@@ -1,4 +1,4 @@
-exports = module.exports = function(IoC, interpreter, translator, unsealer, sealer, logger) {
+exports = module.exports = function(IoC, logger) {
   var Tokens = require('tokens').Tokens;
   
   
@@ -58,26 +58,6 @@ exports = module.exports = function(IoC, interpreter, translator, unsealer, seal
       api.createSealer = tokens.createSealer.bind(tokens);
       api.createUnsealer = tokens.createUnsealer.bind(tokens);
   
-      api.unseal = function(token, options, cb) {
-        if (typeof options == 'function') {
-          cb = options;
-          options = undefined;
-        }
-        options = options || {};
-        
-        var unsealer;
-        try {
-          unsealer = tokens.createUnsealer();
-        } catch (ex) {
-          return cb(ex);
-        }
-        
-        unsealer.unseal(token, options, function(err, claims, conditions, issuer) {
-          if (err) { return cb(err); }
-          return cb(null, claims, conditions, issuer);
-        });
-      };
-  
       return api;
     });
 };
@@ -86,9 +66,5 @@ exports['@implements'] = 'http://i.bixbyjs.org/tokens';
 exports['@singleton'] = true;
 exports['@require'] = [
   '!container',
-  './interpreter',
-  './translator',
-  './unsealer',
-  './sealer',
   'http://i.bixbyjs.org/Logger'
 ];
