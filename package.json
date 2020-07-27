@@ -31,7 +31,6 @@
     "namespace": "tokens",
     "components": [
       "main",
-      "negotiator",
       "jwt/token",
       "jwt/seal",
       "jwt/unseal"

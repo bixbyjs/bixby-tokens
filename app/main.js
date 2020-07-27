@@ -1,4 +1,4 @@
-exports = module.exports = function(IoC, negotiator, interpreter, translator, unsealer, sealer, logger) {
+exports = module.exports = function(IoC, interpreter, translator, unsealer, sealer, logger) {
   var Tokens = require('tokens').Tokens;
   
   
@@ -103,9 +103,11 @@ exports = module.exports = function(IoC, negotiator, interpreter, translator, un
       };
   
   
+      /*
       api.negotiate = function(formats) {
         return negotiator.negotiate(formats);
       }
+      */
   
       api.cipher = function(ctx, options, cb) {
         if (typeof options == 'function') {
@@ -154,7 +156,6 @@ exports['@implements'] = 'http://i.bixbyjs.org/tokens';
 exports['@singleton'] = true;
 exports['@require'] = [
   '!container',
-  'http://i.bixbyjs.org/tokens/Negotiator',
   './interpreter',
   './translator',
   './unsealer',
